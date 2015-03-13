@@ -69,10 +69,16 @@ function makeChart(data, i) {
         .attr("text-anchor", "middle")
         .attr("dy", "6.5em");
 
+    var pageCount = meter.append("text")
+        .attr("class", "pages")
+        .attr("text-anchor", "middle")
+        .attr("dy", "8em");
+
     
     foreground.attr("d", arc.endAngle(twoPi * progress));
     progressText.text(formatPercent(progress));
     title.text(data.title);
+    pageCount.text( "(" + data.page + "/" + data.total + ")" );
 
     if ( progress == 1 )
         foreground.attr("class", "complete")

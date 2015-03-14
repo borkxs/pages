@@ -1,24 +1,30 @@
 var books = [{ title: "Drive",
+    isbn: "1594484805",
     page: 34,
     total: 223
 }, {
     title: "The Signal and the Noise",
+    isbn: "9780143125082",
     page: 20,
     total: 454
 }, {
     title: "On the Shortness of Life",
+    isbn: "0143036327",
     page: 33,
     total: 106
 }, {
     title: "House of Leaves",
+    isbn: "0375703764",
     page: 106,
     total: 528
 }, {
     title: "So Good They Can't...",
+    isbn: "978-1455509126",
     page: 230,
     total: 230
 }, {
     title: "Letters From a Stoic",
+    isbn: "0140442103",
     page: 231,
     total: 231
 }];
@@ -43,7 +49,15 @@ function makeChart(data, i) {
         .innerRadius(50)
         .outerRadius(70);
 
-    var svg = d3.select("body")
+    var containerClass = "book-" + i;
+    
+    $("body").append('<div class="book ' + containerClass + '"></div>');
+
+    if ( data.isbn )
+        $("." + containerClass)
+            .append('<img src="http://covers.openlibrary.org/b/isbn/' + data.isbn + '-M.jpg" />');
+
+    var svg = d3.select("." + containerClass)
         .append("svg")
         .attr("width", width)
         .attr("height", height)

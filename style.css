@@ -1,0 +1,36 @@
+.book {
+    float: left;
+}
+
+.progress-meter .background {
+  fill: #ccc;
+}
+
+.progress-meter .foreground {
+  fill: #000;
+}
+
+.progress-meter .complete {
+  fill: #5cb85c;
+}
+
+.progress-meter text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.progress-meter text.title {
+    font-size: 14px;
+}
+
+.progress-meter text.pages {
+    font-size: 14px;
+    fill: #444;
+}
+/*svg { 
+    position: relative; 
+    left: -190px;
+    background: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+    background-repeat: repeat;
+}*/

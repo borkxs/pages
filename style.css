@@ -1,5 +1,9 @@
 .book {
     float: left;
+    width: 180px;
+    height: 271px;
+    overflow: hidden;
+    margin-right: 5px;
 }
 
 .progress-meter .background {
@@ -28,9 +32,13 @@
     font-size: 14px;
     fill: #444;
 }
-/*svg { 
-    position: relative; 
-    left: -190px;
-    background: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+.image {
+    width: 180px;
+    height: 271px;
+}
+svg { 
+    position: relative;
+    top: -275px;
+    background:  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4Xw8AAoABf5/NhYYAAAAASUVORK5CYII=);
     background-repeat: repeat;
-}*/
+}

@@ -23,6 +23,11 @@ var books = [{ title: "Drive",
     page: 230,
     total: 230
 }, {
+    title: "The Clean Coder",
+    isbn: "9780137081073",
+    page: 204,
+    total: 204
+}, {
     title: "Letters From a Stoic",
     isbn: "0140442103",
     page: 231,
@@ -37,8 +42,8 @@ books
     .forEach(makeChart);
 
 function makeChart(data, i) {
-    var width = 200,
-        height = 300,
+    var width = 180,
+        height = 271,
         twoPi = 2 * Math.PI,
         progress = data.page / data.total,
         total = 100, // must be hard-coded if server doesn't report Content-Length
@@ -53,9 +58,9 @@ function makeChart(data, i) {
     
     $("body").append('<div class="book ' + containerClass + '"></div>');
 
-    if ( data.isbn )
-        $("." + containerClass)
-            .append('<img src="http://covers.openlibrary.org/b/isbn/' + data.isbn + '-M.jpg" />');
+    // if ( data.isbn )
+    $("." + containerClass)
+        .append('<img class="image" src="http://covers.openlibrary.org/b/isbn/' + data.isbn + '-M.jpg" />');
 
     var svg = d3.select("." + containerClass)
         .append("svg")

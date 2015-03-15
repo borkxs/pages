@@ -1,33 +1,43 @@
+body {
+    font-family: Helvetica;
+}
 .book {
     float: left;
     width: 180px;
-    height: 271px;
+    height: 450px;
     overflow: hidden;
     margin-right: 5px;
 }
-
+.progress-meter .circle {
+    fill: #fff;
+    opacity: 0.8;
+}
 .progress-meter .background {
-  fill: #ccc;
+    fill: #ccc;
 }
-
 .progress-meter .foreground {
-  fill: #000;
+    fill: #000;
 }
-
-.progress-meter .complete {
-  fill: #5cb85c;
+.progress-meter .done {
+    fill: #5cb85c;
 }
-
+.progress-meter .reading {
+    fill: #337ab7;
+}
+.progress-meter .started {
+    fill: #f0ad4e;
+}
+.progress-meter .opened {
+    fill: #d9534f;
+}
 .progress-meter text {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 24px;
-  font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
 }
-
 .progress-meter text.title {
     font-size: 14px;
 }
-
 .progress-meter text.pages {
     font-size: 14px;
     fill: #444;
@@ -36,9 +46,19 @@
     width: 180px;
     height: 271px;
 }
-svg { 
+svg {
     position: relative;
     top: -275px;
-    background:  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4Xw8AAoABf5/NhYYAAAAASUVORK5CYII=);
-    background-repeat: repeat;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4Xw8AAoABf5/NhYYAAAAASUVORK5CYII=);
+    background-repeat: repeat;*/
+}
+.text { 
+    position: relative;
+    top: -275px;
+}
+.text h3 {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

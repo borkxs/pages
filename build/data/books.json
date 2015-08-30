@@ -58,5 +58,17 @@
     "isbn": "9781439149959",
     "page": 33,
     "total": 132
+  },
+  {
+    "title": "Columbine",
+    "isbn": "0446546925",
+    "page": 370,
+    "total": 370
+  },
+  {
+    "title": "The Dissappearing Spoon",
+    "isbn": "0316051632",
+    "page": 10,
+    "total": 346
   }
 ]

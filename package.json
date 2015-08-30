@@ -1,0 +1,35 @@
+{
+  "name": "pages",
+  "version": "0.0.1",
+  "description": "track pages read",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikmichaelson/pages.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikmichaelson/pages/issues"
+  },
+  "homepage": "https://github.com/erikmichaelson/pages#readme",
+  "dependencies": {
+    "d3": "^3.5.6",
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "connect": "^3.4.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-open": "^0.2.3",
+    "serve-static": "^1.10.0",
+    "stringify": "^3.1.0"
+  }
+}

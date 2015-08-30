@@ -1,47 +1,21 @@
-var books = [{ title: "Drive",
-    isbn: "1594484805",
-    page: 34,
-    total: 223
-}, {
-    title: "The Signal and the Noise",
-    isbn: "9780143125082",
-    page: 20,
-    total: 454
-}, {
-    title: "On the Shortness of Life",
-    isbn: "0143036327",
-    page: 33,
-    total: 106
-}, {
-    title: "House of Leaves",
-    isbn: "0375703764",
-    page: 106,
-    total: 528
-}, {
-    title: "So Good They Can't...",
-    isbn: "9781455509126",
-    page: 230,
-    total: 230
-}, {
-    title: "The Clean Coder",
-    isbn: "9780137081073",
-    page: 204,
-    total: 204
-}, {
-    title: "Letters From a Stoic",
-    isbn: "0140442103",
-    page: 231,
-    total: 231
-}];
+var $ = require('jquery'),
+    d3 = require('d3');
 
-books
-    .sort( function ( a, b ) {
+$.get('data/books.json', handleBooks);
+
+function handleBooks(books){
+
+    books.sort( byProgress )
+        .forEach( makeChart );
+
+    function byProgress ( a, b ) {
         return progress( a ) > progress( b );
         function progress ( data ) { return data.page / data.total; }
-    })
-    .forEach(makeChart);
+    }
+}
 
 function makeChart(data, i) {
+
     var width = 180,
         height = 271,
         twoPi = 2 * Math.PI,
@@ -61,7 +35,7 @@ function makeChart(data, i) {
 
     var containerClass = "book-" + i,
         selector = "." + containerClass;
-    
+
     $("body").append('<div class="book ' + containerClass + '"></div>');
 
     // if ( data.isbn )

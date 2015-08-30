@@ -11,6 +11,9 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
 
+        // Dev Server
+        port: 7860,
+
         // App Structure
         files: {
             html: {
@@ -99,7 +102,7 @@ module.exports = function(grunt) {
         server: {
             base: "<%= process.env.SERVER_BASE || 'out'%>",
             web: {
-                port: 7860
+                port: "<%= port %>"
             }
         },
         open: {

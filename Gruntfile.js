@@ -15,17 +15,20 @@ module.exports = function(grunt) {
         files: {
             html: {
                 src: "app/index.html",
-                dst: "out/index.html"
+                dev: "out/index.html",
+                build: "build/index.html"
             },
             css: {
                 src: ["app/css/style.css"],
-                dst: "out/css/screen.css"
+                dev: "out/css/screen.css",
+                build: "build/css/screen.css"
             },
             js: {
                 app: {
                     main: "app/js/progress.js",
                     src: ["app/js/*.js","app/js/**/*.js","app/js/templates/*.html"],
-                    dst: "out/js/bundle.js"
+                    dev: "out/js/bundle.js",
+                    build: "build/js/bundle.js"
                 },
                 test: {
                     src: ["test/spec/*.js","test/spec/**/*.js"],
@@ -35,21 +38,32 @@ module.exports = function(grunt) {
             },
             json: {
                 src: "app/data/books.json",
-                dst: "out/data/books.json"
+                dev: "out/data/books.json",
+                build: "build/data/books.json"
             }
         },
 
         // Tasks
         browserify: {
-            app: {
+            dev: {
                 files: {
-                    "<%= files.js.app.dst %>": "<%= files.js.app.main %>"
+                    "<%= files.js.app.dev %>": "<%= files.js.app.main %>"
                 },
                 options: {
                     debug: true,
                     paths: ["./node_modules", "./script/app"],
                     transform: ['stringify']
+                }
+            },
+            build: {
+                files: {
+                    "<%= files.js.app.build %>": "<%= files.js.app.main %>"
                 },
+                options: {
+                    debug: true,
+                    paths: ["./node_modules", "./script/app"],
+                    transform: ['stringify']
+                }
             }
         },
 
@@ -57,19 +71,22 @@ module.exports = function(grunt) {
         concat: {
             css: {
                 files: {
-                    "<%= files.css.dst %>": "<%= files.css.src %>"
+                    "<%= files.css.dev %>": "<%= files.css.src %>",
+                    "<%= files.css.build %>": "<%= files.css.src %>"
                 }
             }
         },
         copy: {
             html: {
                 files: {
-                    "<%= files.html.dst %>": "<%= files.html.src %>"
+                    "<%= files.html.dev %>": "<%= files.html.src %>",
+                    "<%= files.html.build %>": "<%= files.html.src %>"
                 }
             },
             json: {
                 files: {
-                    "<%= files.json.dst %>": "<%= files.json.src %>"
+                    "<%= files.json.dev %>": "<%= files.json.src %>",
+                    "<%= files.json.build %>": "<%= files.json.src %>"
                 }
             }
         },
@@ -98,7 +115,11 @@ module.exports = function(grunt) {
             },
             html: {
                 files: ["<%= files.html.src %>"],
-                tasks: ["copy"]
+                tasks: ["copy:html"]
+            },
+            json: {
+                files: ["<%= files.json.src %>"],
+                tasks: ["copy:json"]
             },
             css: {
                 files: ["<%= files.css.src %>"],
@@ -106,7 +127,7 @@ module.exports = function(grunt) {
             },
             app: {
                 files: ["<%= files.js.app.src %>"],
-                tasks: ["browserify:app"]
+                tasks: ["browserify:dev"]
             }
         }
     });

@@ -1,17 +1,16 @@
 var $ = require('jquery'),
+    _ = require('underscore'),
     d3 = require('d3');
 
 $.get('data/books.json', handleBooks);
 
-function handleBooks(books){
+function handleBooks(books) {
 
-    books.sort( byProgress )
-        .forEach( makeChart );
+    books.forEach(function (book) {
+        book.progress = Math.round(parseFloat((100 * book.page / book.total).toFixed(2)))
+    });
 
-    function byProgress ( a, b ) {
-        return progress( a ) > progress( b );
-        function progress ( data ) { return data.page / data.total; }
-    }
+    books = _(books).sortBy('progress').forEach(makeChart);
 }
 
 function makeChart(data, i) {
@@ -19,7 +18,7 @@ function makeChart(data, i) {
     var width = 180,
         height = 271,
         twoPi = 2 * Math.PI,
-        progress = data.page / data.total,
+        progress = bookProgress(data) / 100,
         total = 100, // must be hard-coded if server doesn't report Content-Length
         formatPercent = d3.format(".0%");
 
@@ -39,18 +38,18 @@ function makeChart(data, i) {
     $("body").append('<div class="book ' + containerClass + '"></div>');
 
     // if ( data.isbn )
-    $( selector ).append('<img class="image" src="http://covers.openlibrary.org/b/isbn/' + data.isbn + '-M.jpg" />');
+    $(selector).append('<img class="image" src="http://covers.openlibrary.org/b/isbn/' + data.isbn + '-M.jpg" />');
 
-    var svg = d3.select( selector )
+    var svg = d3.select(selector)
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    $( selector ).append('<div class="text"></div>')
-    $( selector + ' .text' ).append('<h3>' + data.title + '</h3>');
-    $( selector + ' .text'  ).append('<h4>' +  "(" + data.page + "/" + data.total + ")" + '</h4>');
+    $(selector).append('<div class="text"></div>')
+    $(selector + ' .text').append('<h3>' + data.title + '</h3>');
+    $(selector + ' .text').append('<h4>' + "(" + data.page + "/" + data.total + ")" + '</h4>');
 
     var meter = svg.append("g")
         .attr("class", "progress-meter");
@@ -89,11 +88,11 @@ function makeChart(data, i) {
     // title.text(data.title);
     // pageCount.text( "(" + data.page + "/" + data.total + ")" );
 
-    if ( progress == 1 )
+    if (progress == 1)
         foreground.attr("class", "done");
-    else if ( progress < 1 && progress >= 0.25 )
+    else if (progress < 1 && progress >= 0.25)
         foreground.attr("class", "reading");
-    else if ( progress < 0.25 && progress > 0.1 )
+    else if (progress < 0.25 && progress > 0.1)
         foreground.attr("class", "started");
     else
         foreground.attr("class", "opened");
@@ -101,3 +100,6 @@ function makeChart(data, i) {
 }
 
 
+function bookProgress(data) {
+    return Math.round(parseFloat((100 * data.page / data.total).toFixed(2)));
+}

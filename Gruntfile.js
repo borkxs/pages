@@ -1,12 +1,13 @@
 module.exports = function(grunt) {
 
-    "use strict";
 
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-concat");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-jslint");
     grunt.loadNpmTasks("grunt-open");
 
     grunt.initConfig({
@@ -111,6 +112,19 @@ module.exports = function(grunt) {
             }
         },
 
+        jshint: {
+            src: ["<%= files.js.app.src %>"]
+        },
+        jslint: {
+            client: {
+                src: ["<%= files.js.app.src %>"],
+                directives: {
+                    node: true, // browserify
+                    nomen: true
+                }
+            }
+        },
+
         //
         watch: {
             options: {
@@ -130,7 +144,7 @@ module.exports = function(grunt) {
             },
             app: {
                 files: ["<%= files.js.app.src %>"],
-                tasks: ["browserify:dev"]
+                tasks: ["jshint","jslint","browserify:dev"]
             }
         }
     });
@@ -139,6 +153,6 @@ module.exports = function(grunt) {
 
     grunt.loadTasks("tasks");
 
-    grunt.registerTask("default", ["clean", "copy", "concat", "browserify", "server", "open", "watch"]);
+    grunt.registerTask("default", ["clean", "copy", "concat", "jshint", "jslint", "browserify", "server", "open", "watch"]);
 
 };

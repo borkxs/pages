@@ -1,58 +1,54 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var $ = require('jquery'),
-    _ = require('underscore'),
     d3 = require('d3');
 
-$.get('data/books.json', handleBooks);
+module.exports = function makeChart(data, i) {
 
-function handleBooks(books) {
-
-    books.forEach(function (book) {
-        book.progress = Math.round(parseFloat((100 * book.page / book.total).toFixed(2)))
-    });
-
-    books = _(books).sortBy('progress').forEach(makeChart);
-}
-
-function makeChart(data, i) {
+    "use strict";
 
     var width = 180,
         height = 271,
         twoPi = 2 * Math.PI,
-        progress = bookProgress(data) / 100,
-        total = 100, // must be hard-coded if server doesn't report Content-Length
-        formatPercent = d3.format(".0%");
+        progress = data.progress / 100,
+        formatPercent = d3.format(".0%"),
 
-    var arc = d3.svg.arc()
-        .startAngle(0)
-        .innerRadius(50)
-        .outerRadius(70);
+        arc = d3.svg.arc()
+                .startAngle(0)
+                .innerRadius(50)
+                .outerRadius(70),
 
-    var arc2 = d3.svg.arc()
-        .startAngle(0)
-        .innerRadius(0)
-        .outerRadius(70);
+        arc2 = d3.svg.arc()
+                .startAngle(0)
+                .innerRadius(0)
+                .outerRadius(70),
 
-    var containerClass = "book-" + i,
-        selector = "." + containerClass;
+        containerClass = "book-" + i,
+        selector = "." + containerClass,
+
+        svg,
+        meter,
+        foreground,
+        progressText,
+        title,
+        pageCount;
 
     $("body").append('<div class="book ' + containerClass + '"></div>');
 
     // if ( data.isbn )
     $(selector).append('<img class="image" src="http://covers.openlibrary.org/b/isbn/' + data.isbn + '-M.jpg" />');
 
-    var svg = d3.select(selector)
+    svg = d3.select(selector)
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    $(selector).append('<div class="text"></div>')
+    $(selector).append('<div class="text"></div>');
     $(selector + ' .text').append('<h3>' + data.title + '</h3>');
     $(selector + ' .text').append('<h4>' + "(" + data.page + "/" + data.total + ")" + '</h4>');
 
-    var meter = svg.append("g")
+    meter = svg.append("g")
         .attr("class", "progress-meter");
 
     meter.append("path")
@@ -63,20 +59,20 @@ function makeChart(data, i) {
         .attr("class", "background")
         .attr("d", arc.endAngle(twoPi));
 
-    var foreground = meter.append("path")
+    foreground = meter.append("path")
         .attr("class", "foreground");
 
-    var progressText = meter.append("text")
+    progressText = meter.append("text")
         .attr("text-anchor", "middle")
         .attr("dy", ".35em");
 
-    var title = meter.append("text")
-        .attr("class", "title")
+    title = meter.append("text");
+    title.attr("class", "title")
         .attr("text-anchor", "middle")
         .attr("dy", "6.5em");
 
-    var pageCount = meter.append("text")
-        .attr("class", "pages")
+    pageCount = meter.append("text");
+    pageCount.attr("class", "pages")
         .attr("text-anchor", "middle")
         .attr("dy", "8em");
 
@@ -89,22 +85,37 @@ function makeChart(data, i) {
     // title.text(data.title);
     // pageCount.text( "(" + data.page + "/" + data.total + ")" );
 
-    if (progress == 1)
+    if (progress === 1) {
         foreground.attr("class", "done");
-    else if (progress < 1 && progress >= 0.25)
+    } else if (progress < 1 && progress >= 0.25) {
         foreground.attr("class", "reading");
-    else if (progress < 0.25 && progress > 0.1)
+    } else if (progress < 0.25 && progress > 0.1) {
         foreground.attr("class", "started");
-    else
+    } else {
         foreground.attr("class", "opened");
+    }
 
+};
+},{"d3":3,"jquery":4}],2:[function(require,module,exports){
+var $ = require('jquery'),
+    _ = require('underscore'),
+    d3 = require('d3'),
+
+    chart = require('./chart');
+
+function handleBooks(books) {
+
+    "use strict";
+
+    books.forEach(function (book) {
+        book.progress = Math.round(parseFloat((100 * book.page / book.total).toFixed(2)));
+    });
+
+    books = _(books).sortBy('progress').forEach(chart);
 }
 
-
-function bookProgress(data) {
-    return Math.round(parseFloat((100 * data.page / data.total).toFixed(2)));
-}
-},{"d3":2,"jquery":3,"underscore":4}],2:[function(require,module,exports){
+$.get('data/books.json', handleBooks);
+},{"./chart":1,"d3":3,"jquery":4,"underscore":5}],3:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.6"
@@ -9609,7 +9620,7 @@ function bookProgress(data) {
   if (typeof define === "function" && define.amd) define(d3); else if (typeof module === "object" && module.exports) module.exports = d3;
   this.d3 = d3;
 }();
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -18821,7 +18832,7 @@ return jQuery;
 
 }));
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -20371,4 +20382,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[1]);
+},{}]},{},[2]);

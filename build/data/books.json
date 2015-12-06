@@ -8,7 +8,7 @@
   {
     "title": "The Signal and the Noise",
     "isbn": "9780143125082",
-    "page": 20,
+    "page": 247,
     "total": 454
   },
   {
@@ -70,5 +70,11 @@
     "isbn": "0316051632",
     "page": 10,
     "total": 346
+  },
+  {
+    "title": "Zero to One",
+    "isbn": "0804139296",
+    "page": 195,
+    "total": 195
   }
 ]

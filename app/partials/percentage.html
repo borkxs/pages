@@ -1,0 +1,14 @@
+<svg ng-attr-width="{{width}}" ng-attr-height="{{height}}">
+  <g ng-attr-transform="translate({{width/2}},{{height/2}})">
+    <g class="progress-meter">
+      <path class="circle" ng-attr-d="{{circle}}"></path>
+      <path class="background" ng-attr-d="{{background}}"></path>
+      <path class="foreground" ng-class="foregroundClass" ng-attr-d="{{done}}"></path>
+      <text text-anchor="middle" dy=".35em">{{book.percentage}}</text>
+    </g>
+  </g>
+</svg>
+<div class="text">
+  <h3>{{ title }}</h3>
+  <h4>({{ page }}/{{ total }})</h4>
+</div>

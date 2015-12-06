@@ -1,0 +1,4 @@
+<div class="book" ng-repeat="book in books | orderBy: 'progress'">
+  <img class="image" ng-attr-src="{{ 'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'}}" />
+  <div pages-percentage="book"></div>
+</div>

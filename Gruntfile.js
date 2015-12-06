@@ -22,6 +22,11 @@ module.exports = function(grunt) {
                 dev: "out/index.html",
                 build: "build/index.html"
             },
+            partials: {
+                src: "app/partials/*",
+                dev: "out/partials/",
+                build: "build/partials/"
+            },
             css: {
                 src: ["app/css/style.css"],
                 dev: "out/css/screen.css",
@@ -87,6 +92,16 @@ module.exports = function(grunt) {
                     "<%= files.html.build %>": "<%= files.html.src %>"
                 }
             },
+            partials: {
+                files: [
+                  {
+                    src: ["app/partials/*"],
+                    dest: "out/partials",
+                    expand: true,
+                    flatten: true
+                  }
+                ]
+            },
             json: {
                 files: {
                     "<%= files.json.dev %>": "<%= files.json.src %>",
@@ -134,6 +149,10 @@ module.exports = function(grunt) {
                 files: ["<%= files.html.src %>"],
                 tasks: ["copy:html"]
             },
+            partials: {
+                files: ["<%= files.partials.src %>"],
+                tasks: ["copy:partials"]
+            },
             json: {
                 files: ["<%= files.json.src %>"],
                 tasks: ["copy:json"]
@@ -145,6 +164,10 @@ module.exports = function(grunt) {
             app: {
                 files: ["<%= files.js.app.src %>"],
                 tasks: ["jshint","jslint","browserify:dev"]
+            },
+            grunt: {
+                files: ["Gruntfile.js"],
+                tasks: ["clean", "copy", "concat", "jshint", "jslint", "browserify"]
             }
         }
     });
